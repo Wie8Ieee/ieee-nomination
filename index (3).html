@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IEEE Al-Quds SB Elections 2026 – Nomination</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12263F; --blue:#00629B; --tide:#E8F1F7; --paper:#F6F8FA; --card:#fff;
+    --line:#D5DEE6; --muted:#5B6B7C; --signal:#E4A11B; --err:#B3261E; --ok:#1B7F4B;
+    --r:10px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:16px}
+  button,input,textarea,select{font:inherit;color:inherit}
+  :focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+
+  header{background:var(--ink);color:#fff}
+  .top{max-width:1040px;margin:auto;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{font-weight:700;font-size:1.05rem;letter-spacing:.2px}
+  .brand small{display:block;font-weight:400;opacity:.75;font-size:.82rem}
+  .lang{background:transparent;border:1px solid rgba(255,255,255,.45);color:#fff;border-radius:999px;padding:6px 16px;cursor:pointer}
+  .lang:hover{background:rgba(255,255,255,.12)}
+
+  .lead{background:var(--tide);border-bottom:1px solid var(--line)}
+  .lead-in{max-width:1040px;margin:auto;padding:22px 20px 14px}
+  .lead p{margin:0 0 10px;max-width:70ch}
+  .lead .q{font-size:1.2rem;font-weight:700;color:var(--ink)}
+  .lead .imp{font-weight:600}
+  .lead .dl{font-weight:600;color:var(--blue)}
+
+  .wrap{max-width:1040px;margin:28px auto 60px;padding:0 20px;display:grid;grid-template-columns:250px 1fr;gap:28px;align-items:start}
+  .rail{position:sticky;top:20px}
+  .rail h1{font-size:1.25rem;line-height:1.4;margin:0 0 6px}
+  .rail p{color:var(--muted);font-size:.92rem;margin:0 0 18px}
+  .meta{font-size:.88rem;background:var(--tide);border-radius:var(--r);padding:10px 14px;margin-bottom:18px}
+  .meta div+div{margin-top:4px}
+  .steps{list-style:none;margin:0;padding:0}
+  .steps li{display:flex;align-items:center;gap:10px;padding:8px 0;color:var(--muted);font-size:.95rem}
+  .dot{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:.8rem;flex:none;background:#fff}
+  .steps li.active{color:var(--ink);font-weight:600}
+  .steps li.active .dot{border-color:var(--blue);background:var(--blue);color:#fff}
+  .steps li.done .dot{border-color:var(--ok);background:var(--ok);color:#fff}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px}
+  .bar{display:none;height:6px;background:var(--line);border-radius:9px;overflow:hidden;margin-bottom:18px}
+  .bar i{display:block;height:100%;width:0;background:var(--signal);transition:width .3s}
+  section.step{display:none}
+  section.step.show{display:block}
+  h2{margin:0 0 4px;font-size:1.3rem}
+  .sub{color:var(--muted);margin:0 0 22px;font-size:.95rem}
+
+  .field{margin-bottom:20px}
+  label,.lbl{display:block;font-weight:600;margin-bottom:6px}
+  .hint{font-weight:400;color:var(--muted);font-size:.88rem;display:block}
+  .req{color:var(--err);margin-inline-start:3px}
+  input[type=text],input[type=email],input[type=tel],textarea{
+    width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:var(--r);background:#fff;transition:border-color .15s}
+  textarea{min-height:120px;resize:vertical}
+  input:hover,textarea:hover{border-color:#9FB3C4}
+  input:focus,textarea:focus{border-color:var(--blue);outline:none;box-shadow:0 0 0 3px rgba(0,98,155,.18)}
+  .count{font-size:.8rem;color:var(--muted);text-align:end;margin-top:2px}
+  .field.bad input,.field.bad textarea{border-color:var(--err)}
+  .err{display:none;color:var(--err);font-size:.88rem;margin-top:5px}
+  .field.bad .err{display:block}
+  .field.bad .choices{outline:2px solid var(--err);outline-offset:6px;border-radius:var(--r)}
+
+  .choices{display:flex;flex-wrap:wrap;gap:8px}
+  .choices.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+  .opt{border:1.5px solid var(--line);background:#fff;border-radius:var(--r);padding:10px 14px;cursor:pointer;text-align:start;transition:all .15s;display:flex;gap:10px;align-items:center}
+  .opt:hover{border-color:var(--blue);background:var(--tide)}
+  .opt .mark{width:18px;height:18px;border:2px solid var(--line);border-radius:50%;flex:none;background:#fff}
+  .opt.multi .mark{border-radius:5px}
+  .opt[aria-checked=true]{border-color:var(--blue);background:var(--tide);font-weight:600}
+  .opt[aria-checked=true] .mark{border-color:var(--blue);background:var(--blue);box-shadow:inset 0 0 0 3px #fff}
+  .opt.multi[aria-checked=true] .mark{box-shadow:none;background:var(--blue) no-repeat center/12px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6.5l2.6 2.6L10 3.5' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E")}
+  .opt.pos{flex-direction:column;align-items:flex-start;gap:2px;padding:12px 14px}
+  .opt.pos b{font-weight:600}
+  .opt.pos span{color:var(--muted);font-size:.88rem;font-weight:400}
+
+  dl.sum{margin:0;display:grid;grid-template-columns:150px 1fr;gap:8px 16px;font-size:.95rem}
+  dt{color:var(--muted)} dd{margin:0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .sumbox{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:20px}
+  .confirm{display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--line);border-radius:var(--r);padding:14px;cursor:pointer}
+  .confirm[aria-checked=true]{border-color:var(--blue);background:var(--tide)}
+  .confirm .mark{margin-top:4px}
+  .note{font-size:.88rem;color:var(--muted);margin-top:12px}
+
+  .nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+  .btn{border-radius:var(--r);padding:11px 26px;border:1.5px solid var(--blue);cursor:pointer;font-weight:600;transition:background .15s}
+  .btn.primary{background:var(--blue);color:#fff}
+  .btn.primary:hover{background:#004d7a}
+  .btn.ghost{background:#fff;color:var(--blue)}
+  .btn.ghost:hover{background:var(--tide)}
+  .btn[disabled]{opacity:.55;cursor:wait}
+  .banner{display:none;background:#FCEDEB;border:1px solid #E7B4AF;color:var(--err);border-radius:var(--r);padding:10px 14px;margin-top:16px;font-size:.92rem}
+
+  .done{text-align:center;padding:34px 10px}
+  .check{width:68px;height:68px;border-radius:50%;background:var(--ok);margin:0 auto 18px;display:grid;place-items:center;animation:pop .35s ease-out}
+  .check svg{width:34px;height:34px}
+  @keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+  @media (max-width:820px){
+    .wrap{grid-template-columns:1fr;gap:16px;margin-top:16px}
+    .rail{position:static}
+    .steps,.rail p{display:none}
+    .bar{display:block}
+    .card{padding:20px 16px}
+    dl.sum{grid-template-columns:1fr;gap:2px}
+    dd{margin-bottom:8px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div class="brand">IEEE Al-Quds University Student Branch<small data-i="elections">Elections 2026</small></div>
+    <button class="lang" id="langBtn" type="button">English</button>
+  </div>
+</header>
+
+<section class="lead" aria-label="Introduction">
+  <div class="lead-in">
+    <p class="q" data-i="capQ"></p>
+    <p data-i="cap1"></p>
+    <p data-i="cap2"></p>
+    <p data-i="cap3"></p>
+    <p class="imp" data-i="capImp"></p>
+    <p class="dl" id="capDeadline"></p>
+  </div>
+</section>
+
+<div class="wrap" style="margin-top:20px">
+  <aside class="rail">
+    <h1 data-i="title"></h1>
+    <div class="meta" id="meta"></div>
+    <ol class="steps" id="steps"></ol>
+  </aside>
+
+  <main class="card" id="card">
+    <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
+
+    <!-- الخطوة 1 -->
+    <section class="step" data-step="1">
+      <h2 data-i="s1t"></h2><p class="sub" data-i="s1s"></p>
+      <div class="field" data-key="fullName"><label for="fullName"><span data-i="fullName"></span><span class="req">*</span></label>
+        <input type="text" id="fullName" autocomplete="name"><div class="err" data-i="e_req"></div></div>
+      <div class="field" data-key="studentId"><label for="studentId"><span data-i="studentId"></span><span class="req">*</span></label>
+        <input type="text" id="studentId" inputmode="numeric" autocomplete="off"><div class="err" data-i="e_req"></div></div>
+      <div class="field" data-key="email"><label for="email"><span data-i="email"></span><span class="req">*</span></label>
+        <input type="email" id="email" autocomplete="email" dir="ltr"><div class="err" data-i="e_email"></div></div>
+      <div class="field" data-key="phone"><label for="phone"><span data-i="phone"></span><span class="req">*</span></label>
+        <input type="tel" id="phone" autocomplete="tel" dir="ltr"><div class="err" data-i="e_req"></div></div>
+      <div class="field" data-key="major"><label for="major"><span data-i="major"></span><span class="req">*</span></label>
+        <input type="text" id="major"><div class="err" data-i="e_req"></div></div>
+      <div class="field" data-key="year"><div class="lbl"><span data-i="year"></span><span class="req">*</span></div>
+        <div class="choices" id="c_year" role="radiogroup"></div><div class="err" data-i="e_pick"></div></div>
+    </section>
+
+    <!-- الخطوة 2 -->
+    <section class="step" data-step="2">
+      <h2 data-i="s2t"></h2><p class="sub" data-i="s2s"></p>
+      <div class="field" data-key="active"><div class="lbl"><span data-i="active"></span><span class="req">*</span></div>
+        <div class="choices" id="c_active" role="radiogroup"></div><div class="err" data-i="e_pick"></div></div>
+      <div class="field" data-key="membershipNo"><label for="membershipNo"><span data-i="memNo"></span><span class="req" id="memReq">*</span></label>
+        <input type="text" id="membershipNo" dir="ltr" autocomplete="off"><div class="err" data-i="e_req"></div></div>
+      <div class="field" data-key="position"><div class="lbl"><span data-i="position"></span><span class="req">*</span></div>
+        <div class="choices grid" id="c_position" role="radiogroup"></div><div class="err" data-i="e_pick"></div></div>
+    </section>
+
+    <!-- الخطوة 3 -->
+    <section class="step" data-step="3">
+      <h2 data-i="s3t"></h2><p class="sub" data-i="s3s"></p>
+      <div class="field" data-key="why"><label for="why"><span data-i="why"></span><span class="req">*</span><span class="hint" data-i="whyH"></span></label>
+        <textarea id="why" maxlength="1500"></textarea><div class="count" data-count="why"></div><div class="err" data-i="e_req"></div></div>
+      <div class="field" data-key="skills"><div class="lbl"><span data-i="skills"></span><span class="req">*</span><span class="hint" data-i="skillsH"></span></div>
+        <div class="choices" id="c_skills" role="group"></div><div class="err" data-i="e_skill"></div></div>
+      <div class="field" data-key="experience"><label for="experience"><span data-i="exp"></span><span class="hint" data-i="expH"></span></label>
+        <textarea id="experience" maxlength="1500"></textarea><div class="count" data-count="experience"></div></div>
+    </section>
+
+    <!-- الخطوة 4 -->
+    <section class="step" data-step="4">
+      <h2 data-i="s4t"></h2><p class="sub" data-i="s4s"></p>
+      <div class="field" data-key="contribution"><label for="contribution"><span data-i="contrib"></span><span class="req">*</span></label>
+        <textarea id="contribution" maxlength="1500"></textarea><div class="count" data-count="contribution"></div><div class="err" data-i="e_req"></div></div>
+      <div class="field" data-key="idea"><label for="idea"><span data-i="idea"></span><span class="req">*</span></label>
+        <textarea id="idea" maxlength="1500"></textarea><div class="count" data-count="idea"></div><div class="err" data-i="e_req"></div></div>
+      <div class="field" data-key="commitTerm"><div class="lbl"><span data-i="cTerm"></span><span class="req">*</span></div>
+        <div class="choices" id="c_commitTerm" role="radiogroup"></div><div class="err" data-i="e_pick"></div></div>
+      <div class="field" data-key="commitAttend"><div class="lbl"><span data-i="cAttend"></span><span class="req">*</span></div>
+        <div class="choices" id="c_commitAttend" role="radiogroup"></div><div class="err" data-i="e_pick"></div></div>
+    </section>
+
+    <!-- الخطوة 5 -->
+    <section class="step" data-step="5">
+      <h2 data-i="s5t"></h2><p class="sub" data-i="s5s"></p>
+      <div class="sumbox"><dl class="sum" id="summary"></dl></div>
+      <div class="field" data-key="confirm">
+        <div class="confirm" id="confirmBox" role="checkbox" aria-checked="false" tabindex="0">
+          <span class="opt multi" style="border:0;padding:0;background:none"><span class="mark" id="confirmMark"></span></span>
+          <span data-i="confirm"></span>
+        </div>
+        <div class="err" data-i="e_confirm"></div>
+      </div>
+      <p class="note" data-i="eligNote"></p>
+    </section>
+
+    <div class="banner" id="banner" role="alert"></div>
+
+    <div class="nav" id="nav">
+      <button class="btn ghost" id="backBtn" type="button"></button>
+      <button class="btn primary" id="nextBtn" type="button"></button>
+    </div>
+
+    <!-- نجاح -->
+    <section class="done" id="done" style="display:none">
+      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+      <h2 data-i="doneT"></h2>
+      <p data-i="doneP" style="max-width:480px;margin:8px auto"></p>
+      <p class="note" data-i="doneN"></p>
+    </section>
+
+    <!-- مغلق -->
+    <section class="done" id="closed" style="display:none">
+      <h2 data-i="closedT"></h2><p data-i="closedP"></p>
+    </section>
+  </main>
+</div>
+
+<script>
+  const API = 'https://script.google.com/macros/s/AKfycbydaqqD9MFr5RzNjTX-DgW2tKsz1dOEV0v7_jfkorEM1Q7OZ5rjnOvZBRhXvk2a6saSpQ/exec';
+  let CFG = {deadline:'', contact:'', membershipRequired:true, closed:false};
+
+  // ---------- النصوص ----------
+  const T = {
+    ar:{
+      elections:'انتخابات 2026',
+      title:'نموذج الترشح للمناصب القيادية',
+      capQ:'هل لديك الرغبة في أن تكون جزءًا من قيادة IEEE Al-Quds University Student Branch؟',
+      cap1:'يفتح هذا النموذج باب الترشح للمناصب القيادية في IEEE Al-Quds University Student Branch Elections 2026.',
+      cap2:'نحن نبحث عن طلاب لديهم الرغبة في المشاركة، تحمل المسؤولية، العمل ضمن فريق، والمساهمة في تطوير أنشطة ومبادرات الفرع.',
+      cap3:'يرجى قراءة مسؤوليات المنصب الذي ترغب بالترشح له وتعبئة جميع المعلومات المطلوبة بعناية.',
+      capImp:'مهم: يرجى التأكد من أن عضويتك في IEEE مفعّلة وأنك مستوفٍ لشروط المشاركة في الانتخابات.',
+      deadline:'آخر موعد للترشح', contact:'للاستفسارات',
+      stepNames:['المعلومات الشخصية','العضوية والمنصب','عنك','رؤيتك والتزامك','المراجعة والإرسال'],
+      s1t:'المعلومات الشخصية', s1s:'نستخدمها للتواصل معك بخصوص طلبك.',
+      fullName:'الاسم الكامل', studentId:'الرقم الجامعي', email:'البريد الإلكتروني الجامعي', phone:'رقم الهاتف', major:'التخصص', year:'السنة الدراسية',
+      s2t:'عضوية IEEE والمنصب', s2s:'تأكدي أن عضويتك مفعّلة قبل الإرسال.',
+      active:'هل عضويتك في IEEE مفعّلة حاليًا؟', memNo:'رقم عضوية IEEE', position:'ما المنصب الذي ترغب في الترشح له؟',
+      s3t:'عنك', s3s:'اكتب بإيجاز ووضوح.',
+      why:'لماذا ترغب في الترشح لهذا المنصب؟', whyH:'اشرح باختصار سبب اهتمامك بالمنصب وما الذي يشجعك على تولي مسؤولياته.',
+      skills:'ما المهارات التي ستساعدك في أداء هذا الدور؟', skillsH:'اختر مهارة واحدة على الأقل.',
+      exp:'هل لديك خبرة سابقة مرتبطة بهذا المنصب؟', expH:'مثل المشاركة في IEEE أو الأندية الطلابية أو التطوع أو تنظيم الفعاليات أو المشاريع. (اختياري)',
+      s4t:'رؤيتك والتزامك', s4s:'ما الذي ستقدمه للفرع؟',
+      contrib:'ما الذي ترغب في تقديمه أو تطويره في الفرع؟', idea:'إذا تم اختيارك، ما الفكرة أو المبادرة التي ترغب في تنفيذها؟',
+      cTerm:'هل أنت مستعد/ة للالتزام بمسؤوليات المنصب طوال فترة توليك له؟', cAttend:'هل تستطيع/ين حضور اجتماعات الفرع وفعالياته وأنشطته عند الحاجة؟',
+      s5t:'راجع طلبك', s5s:'تأكد من صحة المعلومات قبل الإرسال.',
+      confirm:'أؤكد أن المعلومات التي قدمتها صحيحة، وأنني أتقدم للترشح للمنصب المحدد بمحض إرادتي.',
+      eligNote:'تعبئة هذا النموذج لا تعني الأهلية الرسمية للترشح. الأهلية النهائية تُحدد وفق شروط الفرع.',
+      back:'السابق', next:'التالي', submit:'إرسال الترشح', sending:'جارٍ الإرسال...',
+      e_req:'هذا الحقل مطلوب.', e_pick:'اختر إجابة.', e_skill:'اختر مهارة واحدة على الأقل.',
+      e_email:'أدخل بريدًا إلكترونيًا صحيحًا.', e_confirm:'يجب تأكيد صحة المعلومات للإرسال.',
+      doneT:'تم استلام ترشحك', doneP:'شكرًا لاهتمامك بقيادة IEEE Al-Quds University Student Branch. سيتم مراجعة الطلبات وفق الإجراءات المعتمدة والتواصل مع المرشحين بخصوص الخطوات القادمة.',
+      doneN:'أرسلنا رسالة تأكيد إلى بريدك الجامعي. إذا لم تصلك، تحقق من البريد غير الهام.',
+      closedT:'باب الترشح مغلق', closedP:'انتهت فترة استقبال طلبات الترشح.',
+      x_dup:'هذا الرقم الجامعي قدّم طلبًا من قبل. إذا أردت تعديل طلبك تواصل مع اللجنة.',
+      x_busy:'الخادم مشغول، حاول مجددًا بعد لحظات.', x_err:'تعذّر الإرسال. حاول مرة أخرى، وإذا استمرت المشكلة تواصل مع اللجنة.',
+      x_closed:'باب الترشح مغلق.', x_inv:'بعض الحقول غير صحيحة. راجع الخطوات السابقة.',
+      none:'—', yes:'نعم', no:'لا'
+    },
+    en:{
+      elections:'Elections 2026',
+      title:'Nomination form for leadership positions',
+      capQ:'Would you like to be part of the leadership of IEEE Al-Quds University Student Branch?',
+      cap1:'This form opens nominations for leadership positions in the IEEE Al-Quds University Student Branch Elections 2026.',
+      cap2:'We are looking for students who want to take part, take responsibility, work in a team, and help develop the branch’s activities and initiatives.',
+      cap3:'Please read the responsibilities of the position you want to run for and fill in all the required information carefully.',
+      capImp:'Important: make sure your IEEE membership is active and that you meet the eligibility requirements for the elections.',
+      deadline:'Nomination deadline', contact:'Questions',
+      stepNames:['Personal information','Membership & position','About you','Vision & commitment','Review & submit'],
+      s1t:'Personal information', s1s:'We use this to contact you about your nomination.',
+      fullName:'Full name', studentId:'Student ID', email:'University email', phone:'Phone number', major:'Major', year:'Academic year',
+      s2t:'IEEE membership & position', s2s:'Make sure your membership is active before you submit.',
+      active:'Is your IEEE membership currently active?', memNo:'IEEE membership number', position:'Which position are you nominating yourself for?',
+      s3t:'About you', s3s:'Keep it short and clear.',
+      why:'Why are you interested in this position?', whyH:'Briefly explain what draws you to this role and its responsibilities.',
+      skills:'Which skills will help you succeed in this role?', skillsH:'Choose at least one.',
+      exp:'Do you have previous experience relevant to this position?', expH:'For example IEEE, student clubs, volunteering, event organizing, or projects. (Optional)',
+      s4t:'Vision & commitment', s4s:'What will you bring to the branch?',
+      contrib:'What would you like to contribute to or improve in the branch?', idea:'If selected, what is one idea or initiative you would implement?',
+      cTerm:'Are you willing to commit to this position’s responsibilities throughout your term?', cAttend:'Can you attend branch meetings, activities, and events when required?',
+      s5t:'Review your nomination', s5s:'Check your details before you submit.',
+      confirm:'I confirm that the information I provided is accurate, and I am submitting my nomination voluntarily for the position selected.',
+      eligNote:'Submitting this form does not mean you are officially eligible. Final eligibility is decided under the branch’s rules.',
+      back:'Back', next:'Next', submit:'Submit nomination', sending:'Sending...',
+      e_req:'This field is required.', e_pick:'Choose an answer.', e_skill:'Choose at least one skill.',
+      e_email:'Enter a valid email address.', e_confirm:'Confirm your details are accurate to submit.',
+      doneT:'Nomination received', doneP:'Thank you for your interest in leading IEEE Al-Quds University Student Branch. Nominations will be reviewed under the approved procedures, and candidates will be contacted about next steps.',
+      doneN:'We sent a confirmation to your university email. If it is missing, check your spam folder.',
+      closedT:'Nominations are closed', closedP:'The nomination period has ended.',
+      x_dup:'This student ID has already submitted a nomination. To change it, contact the committee.',
+      x_busy:'The server is busy. Try again in a moment.', x_err:'Could not submit. Try again, and contact the committee if it keeps failing.',
+      x_closed:'Nominations are closed.', x_inv:'Some fields are invalid. Review the earlier steps.',
+      none:'—', yes:'Yes', no:'No'
+    }
+  };
+
+  const C = {
+    year:[{v:'First Year',ar:'السنة الأولى',en:'First year'},{v:'Second Year',ar:'السنة الثانية',en:'Second year'},{v:'Third Year',ar:'السنة الثالثة',en:'Third year'},{v:'Fourth Year',ar:'السنة الرابعة',en:'Fourth year'},{v:'Other',ar:'أخرى',en:'Other'}],
+    active:[{v:'Yes',ar:'نعم',en:'Yes'},{v:'No',ar:'لا',en:'No'},{v:"I'm not sure",ar:'لست متأكدًا',en:'Not sure'}],
+    position:[
+      {v:'Chairperson',ar:'رئيس/ة الفرع',en:'Chairperson'},
+      {v:'Vice Chairperson',ar:'نائب/ة الرئيس',en:'Vice Chairperson'},
+      {v:'Secretary',ar:'أمين/ة السر',en:'Secretary'},
+      {v:'Chair for WIE',ar:'رئيس/ة WIE',en:'Chair for WIE'},
+      {v:'Events & Activities Coordinator',ar:'منسق/ة الفعاليات والأنشطة',en:'Events & Activities Coordinator'},
+      {v:'PR & Marketing Team',ar:'فريق العلاقات العامة والتسويق',en:'PR & Marketing Team'},
+      {v:'Webmaster',ar:'مسؤول/ة الموقع الإلكتروني',en:'Webmaster'},
+      {v:'Technical Team',ar:'الفريق التقني',en:'Technical Team'}],
+    skills:[
+      {v:'Leadership',ar:'القيادة',en:'Leadership'},{v:'Communication',ar:'التواصل',en:'Communication'},{v:'Teamwork',ar:'العمل الجماعي',en:'Teamwork'},
+      {v:'Organization',ar:'التنظيم',en:'Organization'},{v:'Time Management',ar:'إدارة الوقت',en:'Time management'},{v:'Problem Solving',ar:'حل المشكلات',en:'Problem solving'},
+      {v:'Public Speaking',ar:'التحدث أمام الجمهور',en:'Public speaking'},{v:'Event Planning',ar:'تنظيم الفعاليات',en:'Event planning'},
+      {v:'Social Media & Marketing',ar:'التسويق ووسائل التواصل',en:'Social media & marketing'},{v:'Design',ar:'التصميم',en:'Design'},
+      {v:'Technical Skills',ar:'المهارات التقنية',en:'Technical skills'},{v:'Writing & Documentation',ar:'الكتابة والتوثيق',en:'Writing & documentation'},{v:'Creativity',ar:'الإبداع',en:'Creativity'},
+      {v:'Other',ar:'أخرى',en:'Other'}],
+    commitTerm:[{v:'Yes',ar:'نعم',en:'Yes'},{v:'Maybe',ar:'إلى حد ما',en:'Somewhat'},{v:'No',ar:'لا',en:'No'}],
+    commitAttend:[{v:'Yes',ar:'نعم',en:'Yes'},{v:'Most of the time',ar:'معظم الوقت',en:'Most of the time'},{v:'No',ar:'لا',en:'No'}]
+  };
+  const MULTI = {skills:true};
+  const TEXT = ['fullName','studentId','email','phone','major','membershipNo','why','experience','contribution','idea'];
+  const OPTIONAL = {experience:true};
+
+  // ---------- الحالة ----------
+  let lang = 'en', step = 1, sending = false;
+  const S = {skills:[], confirm:false};
+  const TOTAL = 5;
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+  const t = k => T[lang][k];
+
+  function label(group, v){ const o = C[group].find(x => x.v === v); return o ? o[lang] : v; }
+
+  // ---------- عرض ----------
+  function applyLang(){
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    $('#langBtn').textContent = lang === 'ar' ? 'English' : 'العربية';
+    $$('[data-i]').forEach(el => el.textContent = t(el.dataset.i));
+    const dl = $('#capDeadline');
+    dl.textContent = CFG.deadline ? `📅 ${t('deadline')}: ${CFG.deadline}` : '';
+    dl.style.display = CFG.deadline ? '' : 'none';
+    const meta = [];
+    if (CFG.contact) meta.push(`<div><b>${t('contact')}:</b> <span dir="ltr">${esc(CFG.contact)}</span></div>`);
+    $('#meta').innerHTML = meta.join('');
+    $('#meta').style.display = meta.length ? '' : 'none';
+    $('#backBtn').textContent = t('back');
+    renderChoices(); renderSteps(); updateNav(); updateCounts();
+    if (step === 5) renderSummary();
+    $('#memReq').style.display = CFG.membershipRequired ? '' : 'none';
+  }
+
+  function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  function renderChoices(){
+    Object.keys(C).forEach(g => {
+      const box = $('#c_' + g), multi = !!MULTI[g];
+      box.innerHTML = '';
+      C[g].forEach(o => {
+        const on = multi ? S[g].includes(o.v) : S[g] === o.v;
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'opt' + (multi ? ' multi' : '') + (g === 'position' ? ' pos' : '');
+        b.setAttribute('role', multi ? 'checkbox' : 'radio');
+        b.setAttribute('aria-checked', on);
+        if (g === 'position') {
+          b.innerHTML = `<b>${esc(o[lang])}</b>` + (lang === 'ar' ? `<span dir="ltr" style="align-self:flex-start">${esc(o.en)}</span>` : '');
+        } else {
+          b.innerHTML = `<span class="mark"></span><span>${esc(o[lang])}</span>`;
+        }
+        b.onclick = () => pick(g, o.v, multi);
+        box.appendChild(b);
+      });
+    });
+  }
+
+  function pick(g, v, multi){
+    if (multi) {
+      const i = S[g].indexOf(v);
+      i === -1 ? S[g].push(v) : S[g].splice(i, 1);
+    } else {
+      S[g] = v;
+    }
+    clearBad(g);
+    renderChoices();
+  }
+
+  function renderSteps(){
+    $('#steps').innerHTML = t('stepNames').map((n, i) => {
+      const k = i + 1, cls = k === step ? 'active' : (k < step ? 'done' : '');
+      return `<li class="${cls}"><span class="dot">${k < step ? '✓' : k}</span>${esc(n)}</li>`;
+    }).join('');
+    $('#barFill').style.width = ((step - 1) / (TOTAL - 1) * 100) + '%';
+  }
+
+  function show(n){
+    step = n;
+    $$('section.step').forEach(s => s.classList.toggle('show', +s.dataset.step === n));
+    if (n === 5) renderSummary();
+    renderSteps(); updateNav();
+    $('#banner').style.display = 'none';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function updateNav(){
+    $('#backBtn').style.visibility = step === 1 ? 'hidden' : 'visible';
+    $('#nextBtn').textContent = sending ? t('sending') : (step === TOTAL ? t('submit') : t('next'));
+    $('#nextBtn').disabled = sending;
+  }
+
+  function updateCounts(){
+    $$('[data-count]').forEach(c => { const el = $('#' + c.dataset.count); c.textContent = (el.value.length) + ' / ' + el.maxLength; });
+  }
+
+  function renderSummary(){
+    const rows = [
+      ['fullName', S.fullName], ['studentId', S.studentId], ['email', S.email], ['phone', S.phone], ['major', S.major],
+      ['year', label('year', S.year)], ['active', label('active', S.active)],
+      ['memNo', S.membershipNo || t('none')], ['position', label('position', S.position)],
+      ['skills', (S.skills || []).map(v => label('skills', v)).join(lang === 'ar' ? '، ' : ', ')],
+      ['why', S.why], ['exp', S.experience || t('none')], ['contrib', S.contribution], ['idea', S.idea],
+      ['cTerm', label('commitTerm', S.commitTerm)], ['cAttend', label('commitAttend', S.commitAttend)]
+    ];
+    $('#summary').innerHTML = rows.map(([k, v]) => `<dt>${esc(t(k))}</dt><dd>${esc(v || t('none'))}</dd>`).join('');
+  }
+
+  // ---------- التحقق ----------
+  const REQ = {
+    1:['fullName','studentId','email','phone','major','year'],
+    2:['active','membershipNo','position'],
+    3:['why','skills'],
+    4:['contribution','idea','commitTerm','commitAttend'],
+    5:['confirm']
+  };
+
+  function isBad(k){
+    const v = S[k];
+    if (k === 'skills') return !v.length;
+    if (k === 'confirm') return v !== true;
+    if (k === 'membershipNo') return CFG.membershipRequired && !(v || '').trim();
+    if (k === 'email') return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((v || '').trim());
+    return !v || !String(v).trim();
+  }
+
+  function validate(n){
+    let first = null;
+    REQ[n].forEach(k => {
+      const bad = isBad(k);
+      const f = $(`.field[data-key="${k}"]`);
+      f.classList.toggle('bad', bad);
+      if (bad && !first) first = f;
+    });
+    if (first) {
+      const focusable = $('input,textarea,button', first);
+      if (focusable) focusable.focus();
+      first.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+    return !first;
+  }
+
+  function clearBad(k){ const f = $(`.field[data-key="${k}"]`); if (f) f.classList.remove('bad'); }
+
+  // ---------- أحداث ----------
+  TEXT.forEach(k => {
+    const el = $('#' + k);
+    el.addEventListener('input', () => { S[k] = el.value; clearBad(k); updateCounts(); });
+  });
+
+  const cb = $('#confirmBox');
+  function toggleConfirm(){
+    S.confirm = !S.confirm;
+    cb.setAttribute('aria-checked', S.confirm);
+    $('#confirmMark').parentElement.setAttribute('aria-checked', S.confirm);
+    clearBad('confirm');
+  }
+  cb.addEventListener('click', toggleConfirm);
+  cb.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggleConfirm(); } });
+
+  $('#langBtn').onclick = () => { lang = lang === 'ar' ? 'en' : 'ar'; applyLang(); };
+  $('#backBtn').onclick = () => { if (step > 1) show(step - 1); };
+  $('#nextBtn').onclick = () => {
+    if (sending) return;
+    if (!validate(step)) return;
+    if (step < TOTAL) show(step + 1); else submit();
+  };
+
+  function submit(){
+    sending = true; updateNav();
+    fetch(API, {method:'POST', body: JSON.stringify(S)})
+      .then(r => r.json())
+      .then(res => {
+        sending = false; updateNav();
+        if (res && res.ok) return finish();
+        const map = {DUPLICATE:'x_dup', BUSY:'x_busy', CLOSED:'x_closed', INVALID:'x_inv'};
+        fail(t(map[res && res.code] || 'x_err'));
+      })
+      .catch(() => { sending = false; updateNav(); fail(t('x_err')); });
+  }
+
+  function fail(msg){ const b = $('#banner'); b.textContent = msg; b.style.display = 'block'; b.scrollIntoView({behavior:'smooth', block:'center'}); }
+
+  function finish(){
+    $$('section.step').forEach(s => s.classList.remove('show'));
+    $('#nav').style.display = 'none'; $('#banner').style.display = 'none';
+    $('#done').style.display = 'block';
+    $('#barFill').style.width = '100%';
+    $$('#steps li').forEach(li => { li.className = 'done'; li.querySelector('.dot').textContent = '✓'; });
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  // ---------- بداية ----------
+  function start(){
+    if (CFG.closed) {
+      $('#nav').style.display = 'none';
+      $('#closed').style.display = 'block';
+      applyLang();
+    } else {
+      applyLang();
+      show(1);
+    }
+  }
+
+  fetch(API + '?config=1')
+    .then(r => r.json())
+    .then(c => { if (c && c.config) CFG = c.config; start(); })
+    .catch(() => start());
+</script>
+</body>
+</html>
